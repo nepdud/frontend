@@ -1,10 +1,8 @@
 define([
     'common/utils/config',
-    'common/utils/assign',
     'common/modules/commercial/ad-sizes'
 ], function (
     config,
-    assign,
     adSizes
 ) {
     var inlineDefinition = {
