@@ -26,8 +26,7 @@ define([
     defaults
 ) {
     return function (options) {
-        var adType,
-            opts = defaults(
+        var opts = defaults(
                 options || {},
                 {
                     adSlotContainerSelector: '.js-discussion__ad-slot',
@@ -59,9 +58,7 @@ define([
                         $commentMainColumn.addClass('discussion__ad-wrapper-wider');
                     }
 
-                    adType = 'comments';
-
-                    $adSlot = $(createSlot(adType, 'mpu-banner-ad'));
+                    $adSlot = $(createSlot('inline', 'mpu-banner-ad', { name: 'comments' }));
                     $adSlotContainer.append($adSlot);
                     addSlot($adSlot);
                 });
