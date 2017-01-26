@@ -50,7 +50,7 @@ define([
             } else {
                 adType = (config.page.section !== 'football' && mainColHeight >= minArticleHeight) ||
                          (config.page.section === 'football' && mainColHeight >= minFootballArticleHeight)
-                         ? 'right-sticky' : 'right-small';
+                         ? 'right' : 'right-small';
             }
 
             $adSlot = createSlot(adType, 'mpu-banner-ad');

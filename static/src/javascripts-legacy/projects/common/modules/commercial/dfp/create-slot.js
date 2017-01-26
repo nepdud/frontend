@@ -14,24 +14,18 @@ define([
         }
     };
 
-    var rightMappings = {
-        mobile: compile(
-            adSizes.outOfPage,
-            adSizes.empty,
-            adSizes.mpu,
-            adSizes.halfPage,
-            config.page.edition === 'US' ? adSizes.portrait : null,
-            adSizes.fluid
-        )
-    };
-
     var adSlotDefinitions = {
         right: {
-            sizeMappings: rightMappings
-        },
-        'right-sticky': {
-            name: 'right',
-            sizeMappings: rightMappings
+            sizeMappings: {
+                mobile: compile(
+                    adSizes.outOfPage,
+                    adSizes.empty,
+                    adSizes.mpu,
+                    adSizes.halfPage,
+                    config.page.edition === 'US' ? adSizes.portrait : null,
+                    adSizes.fluid
+                )
+            }
         },
         'right-small': {
             name: 'right',
