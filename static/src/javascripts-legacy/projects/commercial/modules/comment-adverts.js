@@ -34,8 +34,7 @@ define([
                 }
             ),
             $adSlotContainer,
-            $commentMainColumn,
-            $adSlot;
+            $commentMainColumn;
 
         $adSlotContainer = $(opts.adSlotContainerSelector);
         $commentMainColumn = $(opts.commentMainColumn, '.js-comments');
@@ -52,15 +51,17 @@ define([
                 }
 
                 idleFastdom.write(function () {
+                    var adSlot;
+
                     $commentMainColumn.addClass('discussion__ad-wrapper');
 
                     if (!config.page.isLiveBlog && !config.page.isMinuteArticle) {
                         $commentMainColumn.addClass('discussion__ad-wrapper-wider');
                     }
 
-                    $adSlot = $(createSlot('inline', { classes: 'mpu-banner-ad', name: 'comments' }));
-                    $adSlotContainer.append($adSlot);
-                    addSlot($adSlot);
+                    adSlot = createSlot('inline', { classes: 'mpu-banner-ad', name: 'comments' });
+                    $adSlotContainer.append(adSlot);
+                    addSlot(adSlot);
                 });
             });
         });

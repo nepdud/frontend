@@ -40,7 +40,7 @@ define([
         return fastdom.read(function () {
             return $mainCol.dim().height;
         }).then(function (mainColHeight) {
-            var $adSlot, adType;
+            var adSlot, adType;
 
 
             if (config.page.isImmersive) {
@@ -53,14 +53,14 @@ define([
                          ? 'right' : 'right-small';
             }
 
-            $adSlot = createSlot(adType, { classes: 'mpu-banner-ad' });
+            adSlot = createSlot(adType, { classes: 'mpu-banner-ad' });
 
             return fastdom.write(function () {
                 if (config.page.contentType === 'Article' && config.page.sponsorshipType === 'advertisement-features') {
                     $componentsContainer.addClass('u-h');
                 }
 
-                $adSlotContainer.append($adSlot);
+                $adSlotContainer.append(adSlot);
 
                 return $adSlotContainer;
             });
