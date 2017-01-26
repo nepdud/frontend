@@ -8,7 +8,7 @@ define([
     function renderAdvertLabel(adSlotNode) {
         if (shouldRenderLabel(adSlotNode)) {
             return fastdom.write(function () {
-                adSlotNode.insertAdjacentHTML('afterbegin', '<div class="ad-slot__label" data-test-id="ad-slot-label">Advertisement</div>');
+                adSlotNode.insertAdjacentHTML('afterbegin', '<div class="ad-slot__label">Advertisement</div>');
             });
         } else {
             return Promise.resolve(null);

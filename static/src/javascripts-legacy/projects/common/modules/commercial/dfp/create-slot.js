@@ -73,7 +73,6 @@ define([
             return 'ad-slot--' + type;
         }).join(' ');
         adSlot.setAttribute('data-link-name', 'ad slot ' + name);
-        adSlot.setAttribute('data-test-id', 'ad-slot-' + name);
         adSlot.setAttribute('data-name', name);
         attrs.forEach(function (attr) { adSlot.setAttribute('data-' + attr[0], attr[1]); });
         return adSlot;
