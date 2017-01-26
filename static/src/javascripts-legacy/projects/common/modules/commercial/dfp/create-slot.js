@@ -108,11 +108,7 @@ define([
 
         classes.push(name);
 
-        return createAdSlotElement(
-            name,
-            attributes,
-            classes
-        );
+        return createAdSlotElement(name, attributes, classes);
     };
 
 });
