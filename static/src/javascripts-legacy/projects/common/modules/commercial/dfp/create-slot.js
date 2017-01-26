@@ -9,35 +9,34 @@ define([
 ) {
     var inlineDefinition = {
         sizeMappings: {
-            mobile: compile(adSizes.outOfPage, adSizes.empty, adSizes.mpu, adSizes.fluid),
-            desktop: compile(adSizes.outOfPage, adSizes.empty, adSizes.mpu, adSizes.video, adSizes.fluid)
+            mobile: [adSizes.outOfPage, adSizes.empty, adSizes.mpu, adSizes.fluid],
+            desktop: [adSizes.outOfPage, adSizes.empty, adSizes.mpu, adSizes.video, adSizes.fluid]
         }
     };
 
     var adSlotDefinitions = {
         right: {
             sizeMappings: {
-                mobile: compile(
+                mobile: [
                     adSizes.outOfPage,
                     adSizes.empty,
                     adSizes.mpu,
                     adSizes.halfPage,
-                    config.page.edition === 'US' ? adSizes.portrait : null,
                     adSizes.fluid
-                )
+                ].concat(config.page.edition === 'US' ? adSizes.portrait : [])
             }
         },
         'right-small': {
             name: 'right',
             sizeMappings: {
-                mobile: compile(adSizes.outOfPage, adSizes.empty, adSizes.mpu, adSizes.fluid)
+                mobile: [adSizes.outOfPage, adSizes.empty, adSizes.mpu, adSizes.fluid]
             }
         },
         im: {
             label: false,
             refresh: false,
             sizeMappings: {
-                mobile: compile(adSizes.outOfPage, adSizes.empty, adSizes.inlineMerchandising, adSizes.fluid)
+                mobile: [adSizes.outOfPage, adSizes.empty, adSizes.inlineMerchandising, adSizes.fluid]
             }
         },
         'high-merch': {
@@ -45,7 +44,7 @@ define([
             refresh: false,
             name: 'merchandising-high',
             sizeMappings: {
-                mobile: compile(adSizes.outOfPage, adSizes.empty, adSizes.merchandisingHigh, adSizes.fluid)
+                mobile: [adSizes.outOfPage, adSizes.empty, adSizes.merchandisingHigh, adSizes.fluid]
             }
         },
         'high-merch-paid': {
@@ -53,7 +52,7 @@ define([
             refresh: false,
             name: 'merchandising-high',
             sizeMappings: {
-                mobile: compile(adSizes.outOfPage, adSizes.empty, adSizes.merchandisingHighAdFeature, adSizes.fluid)
+                mobile: [adSizes.outOfPage, adSizes.empty, adSizes.merchandisingHighAdFeature, adSizes.fluid]
             }
         },
         inline: inlineDefinition,
@@ -61,27 +60,17 @@ define([
         comments: inlineDefinition,
         'top-above-nav': {
             sizeMappings: {
-                mobile: compile(
+                mobile: [
                     adSizes.outOfPage,
                     adSizes.empty,
                     adSizes.mpu,
                     adSizes.fluid250,
                     adSizes.fabric,
                     adSizes.fluid
-                )
+                ]
             }
         }
     };
-
-    function compile(size1) {
-        var result = size1;
-        for (var i = 1; i < arguments.length; i++) {
-            if (arguments[i]) {
-                result += '|' + arguments[i];
-            }
-        }
-        return result;
-    }
 
     function createAdSlotElement(name, attrs, classes) {
         var adSlot = document.createElement('div');
@@ -90,43 +79,36 @@ define([
         adSlot.setAttribute('data-link-name', 'ad slot ' + name);
         adSlot.setAttribute('data-test-id', 'ad-slot-' + name);
         adSlot.setAttribute('data-name', name);
-        Object.keys(attrs).forEach(function (attr) { adSlot.setAttribute(attr, attrs[attr]); });
+        attrs.forEach(function (attr) { adSlot.setAttribute('data-' + attr[0], attr[1]); });
         return adSlot;
     }
 
     return function (name, slotTypes) {
         var slotName = name,
-            attributes = {},
+            attributes = [],
             definition,
             classes = [];
 
         definition = adSlotDefinitions[slotName] || adSlotDefinitions.inline;
         name = definition.name || name;
 
-        assign(attributes, definition.sizeMappings);
+        Object.keys(definition.sizeMappings).forEach(function (size) {
+            attributes.push([size, definition.sizeMappings[size].join('|')]);
+        });
 
         if (definition.label === false) {
-            attributes.label = 'false';
+            attributes.push(['label', 'false']);
         }
 
         if (definition.refresh === false) {
-            attributes.refresh = 'false';
-        }
-
-        if (slotTypes) {
-            classes = (Array.isArray(slotTypes) ? slotTypes : [slotTypes]).map(function (type) {
-                return 'ad-slot--' + type;
-            });
+            attributes.push(['refresh', 'false']);
         }
 
         classes.push('ad-slot--' + name);
 
         return createAdSlotElement(
             name,
-            Object.keys(attributes).reduce(function (result, key) {
-                result['data-' + key] = attributes[key];
-                return result;
-            }, {}),
+            attributes,
             classes
         );
     };
