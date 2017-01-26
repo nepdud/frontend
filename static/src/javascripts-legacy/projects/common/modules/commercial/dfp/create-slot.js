@@ -75,7 +75,9 @@ define([
     function createAdSlotElement(name, attrs, classes) {
         var adSlot = document.createElement('div');
         adSlot.id = 'dfp-ad--' + name;
-        adSlot.className = 'js-ad-slot ad-slot ' + classes.join(' ');
+        adSlot.className = 'js-ad-slot ad-slot ' + classes.map(function (type) {
+            return 'ad-slot--' + type;
+        }).join(' ');
         adSlot.setAttribute('data-link-name', 'ad slot ' + name);
         adSlot.setAttribute('data-test-id', 'ad-slot-' + name);
         adSlot.setAttribute('data-name', name);
@@ -87,7 +89,7 @@ define([
         var slotName = name,
             attributes = [],
             definition,
-            classes = [];
+            classes = Array.isArray(slotTypes) ? slotTypes : [slotTypes];
 
         definition = adSlotDefinitions[slotName] || adSlotDefinitions.inline;
         name = definition.name || name;
@@ -104,7 +106,7 @@ define([
             attributes.push(['refresh', 'false']);
         }
 
-        classes.push('ad-slot--' + name);
+        classes.push(name);
 
         return createAdSlotElement(
             name,
