@@ -35,17 +35,6 @@ define([
         });
     }
 
-    function identityPolicy() {
-        return !(identity.isUserLoggedIn() && config.page.commentable);
-    }
-
-    function shouldServe() {
-        return commercialFeatures.outbrain &&
-                !config.page.isFront &&
-                !config.page.isPreview &&
-                identityPolicy();
-    }
-
     // a modification of the code provided by Plista; altered to be a lazy load rather than during DOM construction
     function embed(publickey, widgetName, geo, u, categories) {
         var name = 'PLISTA_' + publickey;
@@ -81,7 +70,7 @@ define([
     };
 
     function init() {
-        if (shouldServe()) {
+        if (commercialFeatures.outbrain) {
             return loadInstantly().then(function(adBlockInUse){
                 if (adBlockInUse) {
                     module.load();

@@ -104,10 +104,6 @@ define([
         });
     }
 
-    function identityPolicy() {
-        return !(identity.isUserLoggedIn() && config.page.commentable);
-    }
-
     /*
      Loading Outbrain is dependent on successful return of high relevance component
      from DFP. AdBlock is blocking DFP calls so we are not getting any response and thus
@@ -170,7 +166,7 @@ define([
     }
 
     function init() {
-        if (commercialFeatures.outbrain && identityPolicy() ) {
+        if (commercialFeatures.outbrain) {
             // if there is no merch component, load the outbrain widget right away
             return loadInstantly().then(function(shouldLoadInstantly) {
                 if (shouldLoadInstantly) {
