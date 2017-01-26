@@ -23,7 +23,7 @@ define([
         init: init
     };
 
-    function init() {
+    function init(moduleName, force) {
 
         var modulePromises = [];
 
@@ -34,7 +34,7 @@ define([
             // remove the ones which should not be there
             .filter(function ($adSlot) {
                 // filter out (and remove) hidden ads
-                return shouldDisableAdSlot($adSlot);
+                return force || shouldDisableAdSlot($adSlot);
             })
             .forEach(function ($adSlot){
                 modulePromises.push(
@@ -48,19 +48,15 @@ define([
     }
 
     function shouldDisableAdSlot($adSlot) {
-        return isAdfreeUser() || isVisuallyHidden() || isDisabledCommercialFeature();
+        return isDisabledCommercialFeature($adSlot) || isVisuallyHidden($adSlot);
+    }
 
-        function isVisuallyHidden() {
-            return $css($adSlot, 'display') === 'none';
-        }
+    function isVisuallyHidden($adSlot) {
+        return $css($adSlot, 'display') === 'none';
+    }
 
-        function isDisabledCommercialFeature() {
-            return !commercialFeatures.topBannerAd && $adSlot.data('name') === 'top-above-nav';
-        }
-
-        function isAdfreeUser() {
-            return config.switches.adFreeMembershipTrial && userFeatures.isAdFreeUser();
-        }
+    function isDisabledCommercialFeature($adSlot) {
+        return !commercialFeatures.topBannerAd && $adSlot.data('name') === 'top-above-nav';
     }
 
 });
