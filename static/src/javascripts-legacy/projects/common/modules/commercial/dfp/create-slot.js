@@ -83,14 +83,15 @@ define([
         return adSlot;
     }
 
-    return function (name, slotTypes) {
+    return function (name, slotTypes, options) {
         var slotName = name,
             attributes = [],
             definition,
             classes = Array.isArray(slotTypes) ? slotTypes : [slotTypes];
 
+        options = options || {};
         definition = adSlotDefinitions[slotName] || adSlotDefinitions.inline;
-        name = definition.name || name;
+        name = options.name || definition.name || name;
 
         Object.keys(definition.sizeMappings).forEach(function (size) {
             attributes.push([size, definition.sizeMappings[size].join('|')]);
