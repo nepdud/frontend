@@ -163,7 +163,7 @@ define([
     }
 
     function insertAdAtPara(para, name, type) {
-        var ad = createSlot('inline', type, { name: name });
+        var ad = createSlot('inline', { classes: type, name: name });
 
         return fastdom.write(function () {
             para.parentNode.insertBefore(ad, para);

@@ -89,13 +89,13 @@ define([
         slots = containers
         .map(function (container, index) {
             var adName = getSlotName(index);
-            var classNames = ['container-inline', 'mobile'];
+            var classNames = 'container-inline mobile';
             var slot, section;
             if (config.page.isAdvertisementFeature) {
                 classNames.push('adfeature');
             }
 
-            slot = createSlot('inline', classNames, { name: adName });
+            slot = createSlot('inline', { classes: classNames, name: adName });
 
             // Wrap each ad slot in a SECTION element
             section = document.createElement('section');
@@ -133,14 +133,14 @@ define([
         // create ad slots for the selected slices
         .map(function (slice, index) {
             var adName = getSlotName(index);
-            var classNames = ['container-inline'];
+            var classNames = 'container-inline';
             var slot;
 
             if (config.page.isAdvertisementFeature) {
                 classNames.push('adfeature');
             }
 
-            slot = createSlot('inline', classNames, { name: adName });
+            slot = createSlot('inline', { classes: classNames, name: adName });
 
             return { slice: slice, slot: slot };
         });

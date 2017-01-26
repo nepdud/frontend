@@ -78,15 +78,14 @@ define([
         return adSlot;
     }
 
-    return function (name, slotTypes, options) {
-        var slotName = name,
-            attributes = [],
-            definition,
-            classes = Array.isArray(slotTypes) ? slotTypes : [slotTypes];
+    return function (type, options) {
+        var attributes = [],
+            name, classes, definition;
 
         options = options || {};
-        definition = adSlotDefinitions[slotName] || adSlotDefinitions.inline;
-        name = options.name || definition.name || name;
+        classes = (options.classes || '').split(' ');
+        definition = adSlotDefinitions[type];
+        name = options.name || definition.name || type;
 
         Object.keys(definition.sizeMappings).forEach(function (size) {
             attributes.push([size, definition.sizeMappings[size].join('|')]);

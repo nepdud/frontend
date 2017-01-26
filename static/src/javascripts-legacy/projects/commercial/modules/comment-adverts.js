@@ -58,7 +58,7 @@ define([
                         $commentMainColumn.addClass('discussion__ad-wrapper-wider');
                     }
 
-                    $adSlot = $(createSlot('inline', 'mpu-banner-ad', { name: 'comments' }));
+                    $adSlot = $(createSlot('inline', { classes: 'mpu-banner-ad', name: 'comments' }));
                     $adSlotContainer.append($adSlot);
                     addSlot($adSlot);
                 });
