@@ -5,13 +5,6 @@ define([
     config,
     adSizes
 ) {
-    var inlineDefinition = {
-        sizeMappings: {
-            mobile: [adSizes.outOfPage, adSizes.empty, adSizes.mpu, adSizes.fluid],
-            desktop: [adSizes.outOfPage, adSizes.empty, adSizes.mpu, adSizes.video, adSizes.fluid]
-        }
-    };
-
     var adSlotDefinitions = {
         right: {
             sizeMappings: {
@@ -53,9 +46,12 @@ define([
                 mobile: [adSizes.outOfPage, adSizes.empty, adSizes.merchandisingHighAdFeature, adSizes.fluid]
             }
         },
-        inline: inlineDefinition,
-        mostpop: inlineDefinition,
-        comments: inlineDefinition,
+        inline: {
+            sizeMappings: {
+                mobile: [adSizes.outOfPage, adSizes.empty, adSizes.mpu, adSizes.fluid],
+                desktop: [adSizes.outOfPage, adSizes.empty, adSizes.mpu, adSizes.video, adSizes.fluid]
+            }
+        },
         'top-above-nav': {
             sizeMappings: {
                 mobile: [
