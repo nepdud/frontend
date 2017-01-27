@@ -1,21 +1,15 @@
 define([
-    'bonzo',
     'qwery',
     'Promise',
-    'common/utils/$css',
     'common/utils/fastdom-promise',
     'common/modules/commercial/commercial-features',
-    'common/utils/config',
-    'common/modules/commercial/user-features'
+    'common/utils/config'
 ], function (
-    bonzo,
     qwery,
     Promise,
-    $css,
     fastdom,
     commercialFeatures,
-    config,
-    userFeatures
+    config
 ) {
     var adSlotSelector = '.js-ad-slot';
 
@@ -25,38 +19,32 @@ define([
 
     function init(moduleName, force) {
 
-        var modulePromises = [];
-
         // Get all ad slots
-        qwery(adSlotSelector)
-            // convert them to bonzo objects
-            .map(bonzo)
+        var modulePromises = qwery(adSlotSelector)
             // remove the ones which should not be there
-            .filter(function ($adSlot) {
+            .filter(function (adSlot) {
                 // filter out (and remove) hidden ads
-                return force || shouldDisableAdSlot($adSlot);
+                return force || shouldDisableAdSlot(adSlot);
             })
-            .forEach(function ($adSlot){
-                modulePromises.push(
-                    fastdom.write(function () {
-                        $adSlot.remove();
-                    })
-                );
+            .map(function (adSlot){
+                return fastdom.write(function () {
+                    adSlot.parentNode.removeChild(adSlot);
+                });
             });
 
         return Promise.all(modulePromises);
     }
 
-    function shouldDisableAdSlot($adSlot) {
-        return isDisabledCommercialFeature($adSlot) || isVisuallyHidden($adSlot);
+    function shouldDisableAdSlot(adSlot) {
+        return isDisabledCommercialFeature(adSlot) || isVisuallyHidden(adSlot);
     }
 
-    function isVisuallyHidden($adSlot) {
-        return $css($adSlot, 'display') === 'none';
+    function isVisuallyHidden(adSlot) {
+        return window.getComputedStyle(adSlot).display === 'none';
     }
 
-    function isDisabledCommercialFeature($adSlot) {
-        return !commercialFeatures.topBannerAd && $adSlot.data('name') === 'top-above-nav';
+    function isDisabledCommercialFeature(adSlot) {
+        return !commercialFeatures.topBannerAd && adSlot.getAttribute('data-name') === 'top-above-nav';
     }
 
 });
