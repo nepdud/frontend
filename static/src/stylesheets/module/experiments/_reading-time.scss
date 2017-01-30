@@ -1,0 +1,26 @@
+.rt-blue {
+    color: $news-main-1 !important;
+
+    @include mq($from: wide) {
+        display: block;
+        clear: both;
+    }
+}
+.time-selection {
+    display: inline-block;
+}
+.button--select-time {
+
+    @include button-colour(
+            $news-main-2,
+            #ffffff
+    );
+    @include button-hover-colour(
+            darken($news-main-2, 5%)
+    );
+
+    font-weight: normal;
+    display: inline-block;
+}
+
+

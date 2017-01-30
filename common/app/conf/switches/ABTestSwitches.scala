@@ -99,4 +99,14 @@ trait ABTestSwitches {
     sellByDate = new LocalDate(2017, 5, 1),
     exposeClientSide = true
   )
+
+  Switch(
+    ABTests,
+    "ab-reading-time",
+    "Tests a container that provides content suitable for how much time the reader says they have",
+    owners = Seq(Owner.withGithub("lmath")),
+    safeState = On,
+    sellByDate = new LocalDate(2017, 2, 16),
+    exposeClientSide = true
+  )
 }
