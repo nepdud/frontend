@@ -66,17 +66,33 @@ define([
         return adSlot;
     }
 
+    function sortSizes(s1, s2) {
+        if ( s1 === 'fluid' ) {
+            return -1;
+        } else if (s2 === 'fluid') {
+            return 1;
+        } else if (s1.width !== s2.width) {
+            return s1.width - s2.width;
+        } else {
+            return s1.height - s2.height;
+        }
+    }
+
     return function (type, options) {
         var attributes = [],
             name, classes, definition;
 
         options = options || {};
-        classes = (options.classes || '').split(' ');
         definition = adSlotDefinitions[type];
+
+        classes = (options.classes || '').split(' ');
         name = options.name || definition.name || type;
 
         Object.keys(definition.sizeMappings).forEach(function (size) {
-            attributes.push([size, definition.sizeMappings[size].join('|')]);
+            var sizes = options.sizes && options.sizes[size] ?
+                definition.sizeMappings[size].concat(options.sizes[size]) :
+                definition.sizeMappings[size];
+            attributes.push([size, sizes.sort(sortSizes).join('|')]);
         });
 
         if (definition.label === false) {
