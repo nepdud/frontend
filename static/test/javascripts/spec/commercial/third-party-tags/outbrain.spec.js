@@ -97,30 +97,6 @@ define([
                 });
             });
 
-            it('should not load when user is logged in', function (done) {
-                identity.isUserLoggedIn = function () {
-                    return true;
-                };
-
-                sut.init().then(function () {
-                    expect(sut.load).not.toHaveBeenCalled();
-                    done();
-                });
-            });
-
-            it('should load when user is logged in but there are no comments on the page', function (done) {
-                identity.isUserLoggedIn = function () {
-                    return true;
-                };
-
-                config.page.commentable = false;
-
-                sut.init().then(function () {
-                    expect(sut.load).toHaveBeenCalled();
-                    done();
-                });
-            });
-
             it('should load instantly when ad block is in use', function (done) {
                 detect.adblockInUse = Promise.resolve(false);
 

@@ -103,48 +103,6 @@ define([
 
                 fixtures.clean(fixturesMerch.id);
             });
-
-            it('should not load when sensitive content', function (done) {
-                commercialFeatures.outbrain = false;
-                spyOn(sut, 'load');
-                sut.init().then(function () {
-                    expect(sut.load).not.toHaveBeenCalled();
-                    done();
-                });
-            });
-
-            it('should not load when is preview', function (done) {
-                config.page.isPreview = true;
-                spyOn(sut, 'load');
-                sut.init().then(function(){
-                    expect(sut.load).not.toHaveBeenCalled();
-                    done();
-                });
-            });
-
-            it('should not load when user is logged in', function (done) {
-                identity.isUserLoggedIn = function () {
-                    return true;
-                };
-
-                sut.init().then(function(){
-                    expect(sut.load).not.toHaveBeenCalled();
-                    done();
-                });
-            });
-
-            it('should load when user is logged in but there are no comments on the page', function (done) {
-                identity.isUserLoggedIn = function () {
-                    return true;
-                };
-
-                config.page.commentable = false;
-                spyOn(sut, 'load');
-                sut.init().then(function(){
-                    expect(sut.load).toHaveBeenCalled();
-                    done();
-                });
-            });
         });
     });
 });
