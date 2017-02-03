@@ -8,18 +8,6 @@ define([
     var adSlotDefinitions = {
         right: {
             sizeMappings: {
-                mobile: [
-                    adSizes.outOfPage,
-                    adSizes.empty,
-                    adSizes.mpu,
-                    adSizes.halfPage,
-                    adSizes.fluid
-                ].concat(config.page.edition === 'US' ? adSizes.portrait : [])
-            }
-        },
-        'right-small': {
-            name: 'right',
-            sizeMappings: {
                 mobile: [adSizes.outOfPage, adSizes.empty, adSizes.mpu, adSizes.fluid]
             }
         },
