@@ -5,6 +5,7 @@ define([
     'common/utils/detect',
     'common/utils/mediator',
     'common/utils/fastdom-promise',
+    'common/modules/commercial/ad-sizes',
     'common/modules/commercial/dfp/create-slot',
     'common/modules/commercial/dfp/add-slot',
     'common/modules/commercial/commercial-features',
@@ -16,6 +17,7 @@ define([
     detect,
     mediator,
     fastdom,
+    adSizes,
     createSlot,
     addSlot,
     commercialFeatures,
@@ -78,6 +80,9 @@ define([
     function insertOnMobile(containers, getSlotName) {
         var hasThrasher = containers[0].classList.contains('fc-container--thrasher');
         var includeNext = false;
+        var tanSizes = {
+            mobile: [adSizes.fluid250, adSizes.fabric]
+        };
         var slots;
 
         // Remove first container if it is a thrasher
@@ -104,7 +109,7 @@ define([
                 classNames.push('adfeature');
             }
 
-            slot = createSlot('inline', { classes: classNames, name: adName });
+            slot = createSlot('inline', { classes: classNames, name: adName, sizes: adName === 'top-above-nav' ? tanSizes : null });
 
             // Wrap each ad slot in a SECTION element
             section = document.createElement('section');
