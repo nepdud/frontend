@@ -15,7 +15,7 @@ define([
         init: init
     };
 
-    function init(moduleName, force) {
+    function init(force) {
 
         // Get all ad slots
         var modulePromises = qwery(adSlotSelector)
