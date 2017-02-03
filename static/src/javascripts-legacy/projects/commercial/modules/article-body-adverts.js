@@ -29,6 +29,9 @@ define([
     var bodyAds;
     var replaceTopSlot;
     var getSlotName;
+    var tanSizes = {
+        mobile: [adSizes.fluid250, adSizes.fabric]
+    };
 
     function init(start, stop) {
         start();
@@ -166,7 +169,11 @@ define([
     }
 
     function insertAdAtPara(para, name, type) {
-        var ad = createSlot('inline', { classes: type, name: name });
+        var ad = createSlot('inline', {
+            classes: type,
+            name: name,
+            sizes: name === 'top-above-nav' ? tanSizes : null
+        });
 
         return fastdom.write(function () {
             para.parentNode.insertBefore(ad, para);

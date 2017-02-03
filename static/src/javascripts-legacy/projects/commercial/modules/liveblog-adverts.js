@@ -3,6 +3,7 @@ define([
     'common/utils/detect',
     'common/utils/config',
     'common/utils/mediator',
+    'common/modules/commercial/ad-sizes',
     'common/modules/commercial/dfp/add-slot',
     'common/modules/commercial/commercial-features',
     'common/modules/commercial/dfp/create-slot',
@@ -13,6 +14,7 @@ define([
     detect,
     config,
     mediator,
+    adSizes,
     addSlot,
     commercialFeatures,
     createSlot,
@@ -24,6 +26,9 @@ define([
     var MAX_ADS = 8;       // maximum number of ads to display
 
     var slotCounter = 0, isMobile, windowHeight, firstSlot;
+    var tanSizes = {
+        mobile: [adSizes.fluid250, adSizes.fabric]
+    };
 
     function startListening() {
         mediator.on('modules:autoupdate:updates', onUpdate);
@@ -68,7 +73,11 @@ define([
                 'top-above-nav' : isMobile ?
                 'inline' + slotCounter :
                 'inline' + (slotCounter + 1);
-            var adSlot = createSlot('inline', { classes: 'liveblog-inline block', name: slotName });
+            var adSlot = createSlot('inline', {
+                classes: 'liveblog-inline block',
+                name: slotName,
+                sizes: slotName === 'top-above-nav' ? tanSizes : null
+            });
             slots[i].parentNode.insertBefore(adSlot, slots[i].nextSibling);
             addSlot(adSlot);
             slotCounter += 1;
