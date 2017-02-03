@@ -18,20 +18,12 @@ define([
                 mobile: [adSizes.outOfPage, adSizes.empty, adSizes.inlineMerchandising, adSizes.fluid]
             }
         },
-        'high-merch': {
+        merchandising: {
             label: false,
             refresh: false,
             name: 'merchandising-high',
             sizeMappings: {
-                mobile: [adSizes.outOfPage, adSizes.empty, adSizes.merchandisingHigh, adSizes.fluid]
-            }
-        },
-        'high-merch-paid': {
-            label: false,
-            refresh: false,
-            name: 'merchandising-high',
-            sizeMappings: {
-                mobile: [adSizes.outOfPage, adSizes.empty, adSizes.merchandisingHighAdFeature, adSizes.fluid]
+                mobile: [adSizes.outOfPage, adSizes.empty, adSizes.fluid]
             }
         },
         inline: {

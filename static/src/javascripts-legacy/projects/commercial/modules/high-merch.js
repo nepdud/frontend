@@ -2,9 +2,10 @@ define([
     'Promise',
     'common/utils/config',
     'common/utils/fastdom-promise',
+    'common/modules/commercial/ad-sizes',
     'common/modules/commercial/dfp/create-slot',
     'common/modules/commercial/commercial-features'
-], function (Promise, config, fastdom, createSlot, commercialFeatures) {
+], function (Promise, config, fastdom, adSizes, createSlot, commercialFeatures) {
     return {
         init: init
     };
@@ -19,7 +20,11 @@ define([
         var container = document.createElement('div');
 
         container.className = 'fc-container fc-container--commercial';
-        container.appendChild(createSlot(config.page.isAdvertisementFeature ? 'high-merch-paid' : 'high-merch'));
+        container.appendChild(createSlot('merchandising', {
+            sizes: {
+                mobile: config.page.isAdvertisementFeature ? adSizes.merchandisingHighAdFeature : adSizes.merchandisingHigh
+            }
+        }));
 
         return fastdom.write(function () {
             anchor.parentNode.insertBefore(container, anchor);
