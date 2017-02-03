@@ -121,7 +121,7 @@ define([
             isArticle &&
             !config.page.isPreview &&
             config.page.showRelatedContent &&
-            !(identityApi.isUserLoggedIn() && config.page.commentable);
+            (!identityApi.isUserLoggedIn() || !config.page.commentable);
 
         this.commentAdverts =
             this.dfpAdvertising &&

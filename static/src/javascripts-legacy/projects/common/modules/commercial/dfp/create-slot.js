@@ -60,13 +60,21 @@ define([
 
     return function (type, options) {
         var attributes = [],
-            name, classes, definition;
+            classes = [type],
+            name, definition;
 
         options = options || {};
         definition = adSlotDefinitions[type];
 
-        classes = (options.classes || '').split(' ');
         name = options.name || definition.name || type;
+
+        if (name !== type) {
+            classes.push(name);
+        }
+
+        if (options.classes) {
+            classes = classes.concat(options.classes.split(' '));
+        }
 
         Object.keys(definition.sizeMappings).forEach(function (size) {
             var sizes = options.sizes && options.sizes[size] ?
@@ -82,8 +90,6 @@ define([
         if (definition.refresh === false) {
             attributes.push(['refresh', 'false']);
         }
-
-        classes.push(name);
 
         return createAdSlotElement(name, attributes, classes);
     };

@@ -252,18 +252,15 @@ define(['helpers/injector', 'Promise'], function (Injector, Promise) {
                 expect(features.outbrain).toBe(false);
             });
 
-            it('Is disabled when user is logged in', function () {
-                identityApi.isUserLoggedIn = function () {
-                    return true;
-                };
+            it('Is disabled when user is logged in and there are comments on the page', function () {
+                isSignedIn = true;
+                config.page.commentable = true;
                 features = new CommercialFeatures;
                 expect(features.outbrain).toBe(false);
             });
 
-            it('should load when user is logged in but there are no comments on the page', function () {
-                identityApi.isUserLoggedIn = function () {
-                    return true;
-                };
+            it('Is enabled when user is logged in but there are no comments on the page', function () {
+                isSignedIn = true;
                 config.page.commentable = false;
                 features = new CommercialFeatures;
                 expect(features.outbrain).toBe(true);
