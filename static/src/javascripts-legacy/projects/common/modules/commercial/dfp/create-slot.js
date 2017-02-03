@@ -39,18 +39,6 @@ define([
                 mobile: [adSizes.outOfPage, adSizes.empty, adSizes.mpu, adSizes.fluid],
                 desktop: [adSizes.outOfPage, adSizes.empty, adSizes.mpu, adSizes.video, adSizes.video2, adSizes.fluid]
             }
-        },
-        'top-above-nav': {
-            sizeMappings: {
-                mobile: [
-                    adSizes.outOfPage,
-                    adSizes.empty,
-                    adSizes.mpu,
-                    adSizes.fluid250,
-                    adSizes.fabric,
-                    adSizes.fluid
-                ]
-            }
         }
     };
 
