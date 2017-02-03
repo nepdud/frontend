@@ -11,17 +11,9 @@ define([
                 mobile: [adSizes.outOfPage, adSizes.empty, adSizes.mpu, adSizes.fluid]
             }
         },
-        im: {
-            label: false,
-            refresh: false,
-            sizeMappings: {
-                mobile: [adSizes.outOfPage, adSizes.empty, adSizes.inlineMerchandising, adSizes.fluid]
-            }
-        },
         merchandising: {
             label: false,
             refresh: false,
-            name: 'merchandising-high',
             sizeMappings: {
                 mobile: [adSizes.outOfPage, adSizes.empty, adSizes.fluid]
             }

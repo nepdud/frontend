@@ -21,6 +21,7 @@ define([
 
         container.className = 'fc-container fc-container--commercial';
         container.appendChild(createSlot('merchandising', {
+            name: 'merchandising-high',
             sizes: {
                 mobile: config.page.isAdvertisementFeature ? adSizes.merchandisingHighAdFeature : adSizes.merchandisingHigh
             }

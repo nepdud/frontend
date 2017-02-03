@@ -1,12 +1,14 @@
 define([
     'bonzo',
     'helpers/injector',
+    'common/modules/commercial/ad-sizes',
     'text!fixtures/commercial/ad-slots/im.html',
     'text!fixtures/commercial/ad-slots/inline1.html',
     'text!fixtures/commercial/ad-slots/right.html'
 ], function (
     bonzo,
     Injector,
+    adSizes,
     imHtml,
     inline1Html,
     rightHtml
@@ -34,8 +36,9 @@ define([
                 options: { classes: "mpu-banner-ad" }
             },
             {
-                type: 'im',
-                html: imHtml
+                type: 'merchandising',
+                html: imHtml,
+                options: { name: 'im', sizes: { mobile: [adSizes.inlineMerchandising] }}
             },
             {
                 type: 'inline',

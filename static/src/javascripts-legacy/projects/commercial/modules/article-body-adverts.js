@@ -32,6 +32,9 @@ define([
     var tanSizes = {
         mobile: [adSizes.fluid250, adSizes.fabric]
     };
+    var imSizes = {
+        mobile: [adSizes.inlineMerchandising]
+    };
 
     function init(start, stop) {
         start();
@@ -119,7 +122,7 @@ define([
 
     function addInlineMerchAd() {
         return spaceFiller.fillSpace(getInlineMerchRules(), function (paras) {
-            return insertAdAtPara(paras[0], 'im', 'im').then(function () { return 1; });
+            return insertAdAtPara(paras[0], 'im', 'merchandising').then(function () { return 1; });
         }, {
             waitForImages: true,
             waitForLinks: true,
@@ -169,10 +172,11 @@ define([
     }
 
     function insertAdAtPara(para, name, type) {
-        var ad = createSlot('inline', {
-            classes: type,
+        var ad = createSlot(type, {
             name: name,
-            sizes: name === 'top-above-nav' ? tanSizes : null
+            sizes: name === 'top-above-nav' ? tanSizes :
+                   name === 'im' ?            imSizes :
+                                              null
         });
 
         return fastdom.write(function () {
