@@ -48,7 +48,9 @@ define([
             return $mainCol.dim().height;
         }).then(function (mainColHeight) {
             var adSlot, options = { classes: 'mpu-banner-ad' };
-            var largeArticleSizes = [adSizes.halfPage].concat(config.page.edition === 'US' ? adSizes.portrait : [])
+            var largeArticleSizes = {
+                mobile: [adSizes.halfPage].concat(config.page.edition === 'US' ? adSizes.portrait : [])
+            };
 
             if (config.page.isImmersive) {
                 options.sizes = mainColHeight >= minImmersiveArticleHeight ?
