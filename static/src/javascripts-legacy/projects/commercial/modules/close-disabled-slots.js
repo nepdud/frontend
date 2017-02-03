@@ -2,14 +2,12 @@ define([
     'qwery',
     'Promise',
     'common/utils/fastdom-promise',
-    'common/modules/commercial/commercial-features',
-    'common/utils/config'
+    'common/modules/commercial/commercial-features'
 ], function (
     qwery,
     Promise,
     fastdom,
-    commercialFeatures,
-    config
+    commercialFeatures
 ) {
     var adSlotSelector = '.js-ad-slot';
 
