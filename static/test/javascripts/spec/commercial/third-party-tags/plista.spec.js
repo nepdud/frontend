@@ -103,6 +103,15 @@ define([
 
                 fixtures.clean(fixturesMerch.id);
             });
+
+            it('should not load when outbrain is disabled', function (done) {		
+                commercialFeatures.outbrain = false;
+                spyOn(sut, 'load');
+                sut.init().then(function () {
+                    expect(sut.load).not.toHaveBeenCalled();
+                    done();
+                });
+            });
         });
     });
 });
