@@ -86,7 +86,7 @@ define([
         it('should have the correct size mappings', function (done) {
             articleAsideAdverts.init(noop, noop);
             mediator.once('page:commercial:right', function () {
-                expect($('.ad-slot', $fixturesContainer).data('mobile')).toBe('1,1|2,2|300,250|fluid');
+                expect($('.ad-slot', $fixturesContainer).data('mobile')).toBe('fluid|1,1|2,2|300,250');
                 done();
             });
         });
