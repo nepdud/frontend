@@ -34,15 +34,10 @@ define([
     }
 
     function shouldDisableAdSlot(adSlot) {
-        return isDisabledCommercialFeature(adSlot) || isVisuallyHidden(adSlot);
+        return isVisuallyHidden(adSlot);
     }
 
     function isVisuallyHidden(adSlot) {
         return window.getComputedStyle(adSlot).display === 'none';
     }
-
-    function isDisabledCommercialFeature(adSlot) {
-        return !commercialFeatures.topBannerAd && adSlot.getAttribute('data-name') === 'top-above-nav';
-    }
-
 });

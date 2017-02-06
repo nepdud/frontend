@@ -1,12 +1,16 @@
-@import model.Tags
+@import model.Page.getContent
 @import views.support.Commercial.topAboveNavSlot
 
-@(metaData: model.MetaData)
+@(page: model.Page)
 
-<div class="@topAboveNavSlot.cssClasses(metaData)">
-    @fragments.commercial.standardAd(
-        "top-above-nav",
-        topAboveNavSlot.slotCssClasses,
-        topAboveNavSlot.adSizes
-    )
-</div>
+@defining(getContent(page)) { content =>
+  @if(content.isEmpty || content.exists(content => !content.tags.isTheMinuteArticle)) {
+    <div class="@topAboveNavSlot.cssClasses(page.metadata)">
+        @fragments.commercial.standardAd(
+            "top-above-nav",
+            topAboveNavSlot.slotCssClasses,
+            topAboveNavSlot.adSizes
+        )
+    </div>
+  }
+}
