@@ -109,7 +109,7 @@ define([
                 classNames.push('adfeature');
             }
 
-            slot = createSlot('inline', { classes: classNames, name: adName, sizes: adName === 'top-above-nav' ? tanSizes : null });
+            slot = createSlot('container', { classes: classNames, name: adName, sizes: adName === 'top-above-nav' ? tanSizes : null });
 
             // Wrap each ad slot in a SECTION element
             section = document.createElement('section');
@@ -154,7 +154,7 @@ define([
                 classNames.push('adfeature');
             }
 
-            slot = createSlot('inline', { classes: classNames, name: adName });
+            slot = createSlot('container', { classes: classNames, name: adName });
 
             return { slice: slice, slot: slot };
         });
