@@ -49,7 +49,7 @@ define([
     MostPopular.prototype.prerender = function () {
         if (commercialFeatures.popularContentMPU && !this.mobileMaximumSlotsReached()) {
             var $mpuEl = $('.js-fc-slice-mpu-candidate', this.elem);
-            this.$mpu = $mpuEl.append(createSlot('inline', { classes: 'container-inline', name: 'mostpop' }));
+            this.$mpu = $mpuEl.append(createSlot('container', { classes: 'container-inline', name: 'mostpop' }));
         }
     };
 

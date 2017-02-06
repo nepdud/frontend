@@ -23,6 +23,11 @@ define([
                 mobile: [adSizes.outOfPage, adSizes.empty, adSizes.mpu, adSizes.fluid],
                 desktop: [adSizes.outOfPage, adSizes.empty, adSizes.mpu, adSizes.video, adSizes.video2, adSizes.fluid]
             }
+        },
+        container: {
+            sizeMappings: {
+                mobile: [adSizes.outOfPage, adSizes.empty, adSizes.mpu, adSizes.fluid]
+            }
         }
     };
 
