@@ -51,16 +51,13 @@ define([
             var largeArticleSizes = {
                 mobile: [adSizes.halfPage].concat(config.page.edition === 'US' ? adSizes.portrait : [])
             };
+            var minColHeight =  config.page.isImmersive ?
+                                minImmersiveArticleHeight :
+                                config.page.section === 'football' ?
+                                minFootballArticleHeight :
+                                minArticleHeight;
 
-            if (config.page.isImmersive) {
-                options.sizes = mainColHeight >= minImmersiveArticleHeight ?
-                    largeArticleSizes :
-                    null;
-            } else {
-                options.sizes = (config.page.section !== 'football' && mainColHeight >= minArticleHeight) ||
-                                (config.page.section === 'football' && mainColHeight >= minFootballArticleHeight)
-                         ? largeArticleSizes : null;
-            }
+            options.sizes = mainColHeight >= minColHeight ? largeArticleSizes : null;
 
             adSlot = createSlot('right', options);
 
