@@ -39,8 +39,7 @@ define([
         new GuardianTodayMessaging(),
         acquisitionTestSelector.getTest(),
         new MembershipA1A2Thrasher(),
-        new TailorSurvey(),
-        acquisitionTestSelector.getTest()
+        new TailorSurvey()
     ].concat(MembershipEngagementBannerTests));
 
     var participationsKey = 'gu.ab.participations';

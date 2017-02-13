@@ -6,7 +6,7 @@
 
 .impressions-survey__title {
   display: inline-block;
-  font-family: 'Guardian Text Sans Web', 'Helvetica Neue', 'Helvetica', 'Arial', 'Lucida Grande', 'sans-serif';
+  font-family: 'Guardian Egyptian Web', Georgia, 'sans-serif';
   font-weight: bold;
   font-size: 1.8em;
   margin-right: 1em;
@@ -32,7 +32,7 @@
   margin-bottom: 1em;
   padding: 1em 1em 1em 3em;
   font-size: .8em;
-  background-color: #005689;
+  background-color: $guardian-brand;
   opacity: 1;
   position: relative;
 }
@@ -41,10 +41,6 @@
   font-weight: bold;
   padding-bottom: .5em;
   margin-left: -1em!important;
-}
-
-.impressions-survey__select {
-
 }
 
 .fi-survey__button, .fi-survey__label {

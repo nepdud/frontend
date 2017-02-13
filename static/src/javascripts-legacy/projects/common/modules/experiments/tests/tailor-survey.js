@@ -30,11 +30,11 @@ define([
     return function () {
         this.id = 'TailorSurvey';
         this.start = '2017-01-25';
-        this.expiry = '2017-02-31';
+        this.expiry = '2017-03-31';
         this.author = 'Manlio';
         this.description = 'Testing Tailor surveys';
         this.audience = 0.01;
-        this.audienceOffset = 0;
+        this.audienceOffset = 0.7;
         this.successMeasure = 'We can show a survey on Frontend to regular users only (as decided by Tailor)';
         this.audienceCriteria = 'All users';
         this.dataLinkNames = 'Tailor survey';
@@ -46,47 +46,34 @@ define([
         };
 
         function callTailor(bwid) {
-            if (!bwid) {
-                // console.log('No cookie found :(');
-            }
-            else {
-                var endpoint = 'https://tailor.guardianapis.com/suggestions?browserId=' + bwid;
-                var request = fetchJson(endpoint, {
-                    type: 'json',
-                    method: 'get'
-                });
-                return request.then(function (body) {
-                    return {
-                        tailorResponse: body
-                    }
-                });
-            }
+            var endpoint = 'https://tailor.guardianapis.com/suggestions?browserId=' + bwid;
+            return fetchJson(endpoint, {
+                type: 'json',
+                method: 'get'
+            });
         }
 
         function renderQuickSurvey() {
             var bwid = cookies.get('bwid');
+            var hasSeenTheSurveyAlready = cookies.get('GU_TAILOR_SURVEY_1') || false;
 
-            return callTailor(bwid).then(function (response) {
-                var isRegular = response.tailorResponse.userDataForClient.regular;
-                return isRegular;
-            }).then(function(isRegular) {
+            if (bwid && !hasSeenTheSurveyAlready) {
+                return callTailor(bwid).then(function (response) {
+                    return response.userDataForClient.regular;
+                }).then(function(isRegular) {
+                    if (isRegular) {
+                        cookies.add('GU_TAILOR_SURVEY_1', 1, 100); // do not show this survey to the user for the next 100 days
 
-                var hasSeenTheSurveyAlready = cookies.get('GU_TAILOR_SURVEY_1') || false;
-                if (isRegular && !hasSeenTheSurveyAlready) {
-                    cookies.add('GU_TAILOR_SURVEY_1', 1, 100); // do not show this survey to the user for the next 100 days
-
-                    return fastdomPromise.write(function () {
-                        var article = document.getElementsByClassName('content__article-body')[0];
-                        var insertionPoint = article.getElementsByTagName('p')[1];
-                        var surveyDiv = document.createElement('div');
-                        surveyDiv.innerHTML = quickSurvey;
-                        article.insertBefore(surveyDiv, insertionPoint);
-                    });
-                }
-                else {
-                    // console.log("User isn't regular, or has seen the survey before")
-                }
-            });
+                        return fastdomPromise.write(function () {
+                            var article = document.getElementsByClassName('content__article-body')[0];
+                            var insertionPoint = article.getElementsByTagName('p')[1];
+                            var surveyDiv = document.createElement('div');
+                            surveyDiv.innerHTML = quickSurvey;
+                            article.insertBefore(surveyDiv, insertionPoint);
+                        });
+                    }
+                });
+            }
         }
 
         function disableRadioButtons(buttonClassName) {
@@ -119,7 +106,7 @@ define([
                     var answer = event.target.attributes.getNamedItem("data-link-name").value;
                     recordOphanAbEvent(answer);
 
-                    mediator.emit('clicked');
+                    mediator.emit('tailor:survey:clicked');
                     fastdom.write(function () {
                         disableRadioButtons('fi-survey__button');
                         surveyFadeOut();
@@ -141,6 +128,11 @@ define([
 
         this.variants = [
             {
+                id: 'control',
+                test: function () {
+                }
+            },
+            {
                 id: 'variant',
                 test: function () {
                     Promise.all([renderQuickSurvey(), privateBrowsing]).then(function () {
@@ -152,13 +144,7 @@ define([
                     mediator.on('survey-added', track);
                 },
                 success: function(complete) {
-                    mediator.on('clicked', complete);
-                }
-            },
-            {
-                id: 'control',
-                test: function () {
-                    // console.log("Control group - nothing to be done here")
+                    mediator.on('tailor:survey:clicked', complete);
                 }
             }
         ];
